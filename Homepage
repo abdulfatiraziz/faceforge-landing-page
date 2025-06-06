@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceForge - Forge Your Best Face</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+            color: #F9EAE1;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #EF3E36, #d63529);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 35px;
+            background: #F9EAE1;
+            clip-path: polygon(0 0, 70% 0, 100% 100%, 30% 100%);
+            right: 8px;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 30px;
+            background: #EF3E36;
+            clip-path: polygon(0 0, 60% 0, 90% 100%, 20% 100%);
+            left: 8px;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #F9EAE1;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #3B4C8D;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            flex-wrap: wrap;
+        }
+
+        .upload-section {
+            background: #2A2E35;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 2px dashed #3B4C8D;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #EF3E36;
+            transform: translateY(-2px);
+        }
+
+        .upload-area {
+            cursor: pointer;
+            padding: 40px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, rgba(239, 62, 54, 0.1), rgba(59, 76, 141, 0.1));
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background: linear-gradient(45deg, rgba(239, 62, 54, 0.2), rgba(59, 76, 141, 0.2));
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .preview-section {
+            background: #2A2E35;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .preview-section img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>FaceForge</h1>
+            </div>
+            <p class="tagline">Forge Your Best Face</p>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <label class="upload-area" for="fileInput">
+                    <img src="https://www.svgrepo.com/show/525150/upload-cloud.svg" alt="Upload" class="upload-icon">
+                    <p>Click to upload your image</p>
+                    <input type="file" id="fileInput" accept="image/*">
+                </label>
+                <p>Supported formats: JPG, PNG, WebP</p>
+            </div>
+
+            <div class="preview-section">
+                <h2>Preview</h2>
+                <img id="previewImage" src="" alt="" style="display:none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById('previewImage');
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
